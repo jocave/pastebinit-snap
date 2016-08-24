@@ -1,0 +1,49 @@
+name: pastebinit
+version: trunk
+summary: Send anything you want directly to a pastebin from the command line
+description: |
+  This software lets you send a file or simply the result of a command
+  directly to the pastebin you want (if it's supported) and gives you the URL
+  in return.
+confinement: strict
+
+apps:
+  pastebinit:
+    command: pastebinit
+    plugs: [network]
+  pbget:
+    command: pbget
+    plugs: [network-bind]
+  pbput:
+    command: pbput
+    plugs: [network]
+  pbputs:
+    command: pbputs
+
+parts:
+  pastebinit:
+    plugin: dump
+    source: lp:pastebinit
+    organize:
+      pastebinit: usr/bin/pastebinit
+      utils/pbget: usr/bin/pbget
+      utils/pbput: usr/bin/pbput
+      utils/pbputs: usr/bin/pbputs
+      pastebin.d: usr/bin/pastebin.d
+    filesets:
+      wanted:
+        - usr/bin
+    snap:
+      - $wanted
+  dependencies:
+    plugin: nil    
+    stage-packages:
+      - coreutils
+      - wget
+      - file
+      - gnupg
+    snap:
+       - usr/bin/base64
+       - usr/bin/wget
+       - usr/bin/file
+       - usr/bin/gpg
