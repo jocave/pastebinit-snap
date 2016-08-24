@@ -13,12 +13,13 @@ apps:
     plugs: [network]
   pbget:
     command: pbget
-    plugs: [network-bind]
+    plugs: [network]
   pbput:
     command: pbput
     plugs: [network]
   pbputs:
     command: pbputs
+    plugs: [network]
 
 parts:
   pastebinit:
